@@ -5,6 +5,8 @@ class Pangio {
     public function __construct() {
         $this->initializeSystemClasses();
         $this->initializeControllers();
+        $this->initializeModels();
+        $this->defineConstants();
     }
 
     private function initializeSystemClasses() :void {
@@ -28,5 +30,22 @@ class Pangio {
         foreach ($allControllers as $controller) {
             include dirname(__DIR__) . '/Controllers/' . $controller;
         }
+    }
+
+    private function initializeModels() :void {
+        $allModels = scandir(dirname(__DIR__) . '/Models');
+        unset($allModels[0]);
+        unset($allModels[1]);
+
+        foreach ($allModels as $model) {
+            include dirname(__DIR__) . '/Models/' . $model;
+        }
+    }
+
+    private function defineConstants() :void {
+        $config = new Config();
+        $applicationConfig = $config->getApplicationConfig();
+
+        define('BASE_URL', $applicationConfig['baseURL']);
     }
 }

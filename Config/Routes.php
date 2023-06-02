@@ -1,4 +1,4 @@
 <?php
 $routes = [
-    'defaultRoute' => 'Users/index'
+    'defaultRoute' => ''
 ];
